@@ -96,10 +96,10 @@ public class SimpleServiceLocatorTest {
     private Integer constantInteger;
     private String constantString;
 
-    private Factory factoryA;
-    private Factory factoryB;
-    private Factory factoryC;
-    private Factory factoryD;
+    private FactoryA1 factoryA;
+    private FactoryB1 factoryB;
+    private FactoryC1 factoryC;
+    private FactoryD1 factoryD;
 
     @BeforeEach
     void setUp(){
@@ -112,14 +112,41 @@ public class SimpleServiceLocatorTest {
         factoryB = new FactoryB1();
         factoryC = new FactoryC1();
         factoryD = new FactoryD1();
+
+    }
+
+    @Test
+    void setServicesCorrectly() {
+        assertEquals(0, ssl.getServicesLenght());
+        addServices();
+        assertEquals(4, ssl.getServicesLenght());
+    }
+
+    @Test
+    void setServicesRepeatedKey() {
+        addServices();
+        assertThrows(LocatorError.class, () -> ssl.setService(InterfaceA.class, factoryA));
+        assertThrows(LocatorError.class, () -> ssl.setService(InterfaceB.class, factoryB));
+        assertThrows(LocatorError.class, () -> ssl.setService(InterfaceC.class, factoryC));
+        assertThrows(LocatorError.class, () -> ssl.setService(InterfaceD.class, factoryD));
+
+    }
+
+    @Test
+    void setConstantsCorrectly() {
+        assertEquals(0, ssl.getServicesLenght());
+        addConstant();
+        assertEquals(2, ssl.getServicesLenght());
+        addAllFactoriesAsConstants();
+        assertEquals(6, ssl.getServicesLenght());
     }
 
     private void addServices() {
         try {
-            ssl.setService(FactoryA1.class, factoryA);
-            ssl.setService(FactoryB1.class, factoryB);
-            ssl.setService(FactoryC1.class, factoryC);
-            ssl.setService(FactoryD1.class, factoryD);
+            ssl.setService(InterfaceA.class, factoryA);
+            ssl.setService(InterfaceB.class, factoryB);
+            ssl.setService(InterfaceC.class, factoryC);
+            ssl.setService(InterfaceD.class, factoryD);
         } catch (LocatorError e) {
             fail(e.toString());
         }
@@ -131,6 +158,26 @@ public class SimpleServiceLocatorTest {
             ssl.setConstant(FactoryB1.class, factoryB);
             ssl.setConstant(FactoryC1.class, factoryC);
             ssl.setConstant(FactoryD1.class, factoryD);
+        } catch (LocatorError e) {
+            fail(e.toString());
+        }
+    }
+
+    private void addSomeFactoriesAsConstantAndOthersAsService() {
+        try {
+            ssl.setService(InterfaceA.class, factoryA);
+            ssl.setConstant(FactoryB1.class, factoryB);
+            ssl.setConstant(FactoryC1.class, factoryC);
+            ssl.setService(InterfaceD.class, factoryD);
+        } catch (LocatorError e) {
+            fail(e.toString());
+        }
+    }
+
+    private void addConstant() {
+        try {
+            ssl.setConstant(String.class, "String");
+            ssl.setConstant(Integer.class, 10);
         } catch (LocatorError e) {
             fail(e.toString());
         }
