@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class SimpleServiceLocatorTest {
+class SimpleServiceLocatorTest {
 
     class ImplementationA1 implements InterfaceA {
         private InterfaceB b;
