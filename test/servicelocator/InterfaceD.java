@@ -1,4 +1,4 @@
 package servicelocator;
 
-public interface InterfaceD {
+interface InterfaceD {
 }
