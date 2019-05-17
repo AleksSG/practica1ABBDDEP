@@ -1,8 +1,5 @@
 package servicelocator2;
 
-import servicelocator2.Factory;
-import servicelocator2.LocatorError;
-import servicelocator2.ServiceLocator;
 import utils.Pair;
 
 import java.util.HashMap;
