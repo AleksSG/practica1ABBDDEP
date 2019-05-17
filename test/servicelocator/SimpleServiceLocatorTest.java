@@ -96,11 +96,6 @@ class SimpleServiceLocatorTest {
     private Integer constantInteger;
     private String constantString;
 
-    private InterfaceA constantA;
-    private InterfaceB constantB;
-    private InterfaceC constantC;
-    private InterfaceD constantD;
-
     private Factory factoryA;
     private Factory factoryB;
     private Factory factoryC;
@@ -113,10 +108,6 @@ class SimpleServiceLocatorTest {
 
         constantInteger = 10;
         constantString = "String";
-//        constantC = new ImplementationC1("Interface C1");
-//        constantD = new ImplementationD1(20);
-//        constantB = new ImplementationB1(constantD);
-//        constantA = new ImplementationA1(constantB, constantC);
 
         factoryA = new FactoryA1();
         factoryB = new FactoryB1();
@@ -134,10 +125,10 @@ class SimpleServiceLocatorTest {
     @Test
     void setServicesRepeatedKey() {
         addServices();
-        assertThrows(LocatorError.class, () -> ssl.setService("factA", factoryA));
-        assertThrows(LocatorError.class, () -> ssl.setService("factB", factoryB));
-        assertThrows(LocatorError.class, () -> ssl.setService("factC", factoryC));
-        assertThrows(LocatorError.class, () -> ssl.setService("factD", factoryD));
+        assertThrows(LocatorError.class, () -> ssl.setService("A", factoryA));
+        assertThrows(LocatorError.class, () -> ssl.setService("B", factoryB));
+        assertThrows(LocatorError.class, () -> ssl.setService("C", factoryC));
+        assertThrows(LocatorError.class, () -> ssl.setService("D", factoryD));
     }
 
     @Test
@@ -158,36 +149,46 @@ class SimpleServiceLocatorTest {
     }
 
     @Test
-    void getObjectTypeCorrectly() {
+    void checkDoesNotThrowWhenAllDependenciesAreThere() {
         addServices();
+        assertDoesNotThrow(() -> ssl.getObject("A"));
+    }
+
+    @Test
+    void checkThrowsWhenNotAllDependenciesAreThere() {
+        try {
+            ssl.setService("A", factoryA);
+            ssl.setService("B", factoryB);
+            ssl.setService("C", factoryC);
+        }
+        catch(Exception e) {
+            fail(e.toString());
+        }
+        assertThrows(LocatorError.class, () -> ssl.getObject("A"));
+    }
+
+    @Test
+    void getObjectsFromConstantsCheck() {
         addConstant();
         addFactoriesAsConstant();
 
         try {
             //Check if they are Objects (constants).
-            assertTrue(ssl.getObject("Constant Integer") instanceof Integer);
-            assertTrue(ssl.getObject("Constant String") instanceof String);
+            assertSame(ssl.getObject("Constant Integer"), constantInteger);
+            assertSame(ssl.getObject("Constant String"), constantString);
 
-            assertTrue(ssl.getObject("Constant factA") instanceof FactoryA1);
-            assertTrue(ssl.getObject("Constant factB") instanceof FactoryB1);
-            assertTrue(ssl.getObject("Constant factC") instanceof FactoryC1);
-            assertTrue(ssl.getObject("Constant factD") instanceof FactoryD1);
+            assertSame(ssl.getObject("Constant factA"), factoryA);
+            assertSame(ssl.getObject("Constant factB"), factoryB);
+            assertSame(ssl.getObject("Constant factC"), factoryC);
+            assertSame(ssl.getObject("Constant factD"), factoryD);
         } catch (LocatorError e) {
             fail(e.toString());
         }
-
-        //Check if they are Factories (services). "create" method cannot return new Instance due to no existing key "A" and throws an error. If it is thrown, "factA" is Service
-        assertThrows(LocatorError.class, () -> ssl.getObject("factA"));
-        assertThrows(LocatorError.class, () -> ssl.getObject("factB"));
-        assertThrows(LocatorError.class, () -> ssl.getObject("factC"));
-        assertThrows(LocatorError.class, () -> ssl.getObject("factD"));
     }
 
     @Test
-    void getObjectCreateImplementations() {
+    void getObjectsFromFactoriesCheck() {
         addServices();
-        addConstant();
-        addInterfacesAsConstant();
 
         try {
             assertTrue(ssl.getObject("A") instanceof ImplementationA1);
@@ -200,30 +201,14 @@ class SimpleServiceLocatorTest {
     }
 
     @Test
-    void getObjectReturnsDifferentImplementation() {
+    void getObjectReturnsDifferentImplementationOnFactories() {
         addServices();
-        addConstant();
-        addInterfacesAsConstant();
 
         try {
-            //Both are created using "factX". The difference is that the X1 is stored in ssl to build the following implementations.
-            //This way we do not repeat code, we just get from saved ssl and compare them.
-            InterfaceD interD1 = (InterfaceD) ssl.getObject("D");
-            InterfaceD interD2 = (InterfaceD) ssl.getObject("factD");
-            assertFalse(interD1 == interD2);
-
-            InterfaceC interC1 = (InterfaceC) ssl.getObject("C");
-            InterfaceC interC2 = (InterfaceC) ssl.getObject("factC");
-            assertFalse(interC1 == interC2);
-
-            InterfaceB interB1 = (InterfaceB) ssl.getObject("B");
-            InterfaceB interB2 = (InterfaceB) ssl.getObject("factB");
-            assertFalse(interB1 == interB2);
-
-            InterfaceA interA1 = (InterfaceA) ssl.getObject("A");
-            InterfaceA interA2 = (InterfaceA) ssl.getObject("factA");
-            assertFalse(interA1 == interA2);
-
+            assertNotSame(ssl.getObject("A"), ssl.getObject("A"));
+            assertNotSame(ssl.getObject("B"), ssl.getObject("B"));
+            assertNotSame(ssl.getObject("C"), ssl.getObject("C"));
+            assertNotSame(ssl.getObject("D"), ssl.getObject("D"));
         } catch (LocatorError e) {
             fail(e.toString());
         }
@@ -231,10 +216,10 @@ class SimpleServiceLocatorTest {
 
     private void addServices() {
         try {
-            ssl.setService("factA", factoryA);
-            ssl.setService("factB", factoryB);
-            ssl.setService("factC", factoryC);
-            ssl.setService("factD", factoryD);
+            ssl.setService("A", factoryA);
+            ssl.setService("B", factoryB);
+            ssl.setService("C", factoryC);
+            ssl.setService("D", factoryD);
         } catch (LocatorError e) {
             fail(e.toString());
         }
@@ -258,21 +243,5 @@ class SimpleServiceLocatorTest {
         } catch (LocatorError e) {
             fail(e.toString());
         }
-    }
-
-    private void addInterfacesAsConstant() {
-        try {
-            InterfaceD interD = (InterfaceD) ssl.getObject( "factD");
-            ssl.setConstant("D", interD);
-            InterfaceC interC = (InterfaceC) ssl.getObject( "factC");
-            ssl.setConstant("C", interC);
-            InterfaceB interB = (InterfaceB) ssl.getObject( "factB");
-            ssl.setConstant("B", interB);
-            InterfaceA interA = (InterfaceA) ssl.getObject( "factA");
-            ssl.setConstant("A", interA);
-        } catch (LocatorError e) {
-            fail(e.toString());
-        }
-
     }
 }
