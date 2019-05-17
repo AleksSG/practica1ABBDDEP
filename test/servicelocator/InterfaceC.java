@@ -1,4 +1,4 @@
-package serviceLocator;
+package servicelocator;
 
 public interface InterfaceC {
 }
