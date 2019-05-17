@@ -46,4 +46,8 @@ public class CachedServiceLocator implements ServiceLocator {
 
         throw new LocatorError(new IllegalArgumentException("The ObjectType was neither SERVICE nor CONSTANT."));
     }
+
+    public int getServicesLenght() {
+        return this.services.size();
+    }
 }

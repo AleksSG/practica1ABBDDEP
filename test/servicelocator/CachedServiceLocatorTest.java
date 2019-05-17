@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class SimpleServiceLocatorTest {
+class CachedServiceLocatorTest {
 
     class ImplementationA1 implements InterfaceA {
         private InterfaceB b;
@@ -91,7 +91,7 @@ class SimpleServiceLocatorTest {
     }
 
 
-    private SimpleServiceLocator ssl;
+    private CachedServiceLocator ssl;
 
     private Integer constantInteger;
     private String constantString;
@@ -104,7 +104,7 @@ class SimpleServiceLocatorTest {
 
     @BeforeEach
     void setUp(){
-        ssl = new SimpleServiceLocator();
+        ssl = new CachedServiceLocator();
 
         constantInteger = 10;
         constantString = "String";
@@ -213,10 +213,10 @@ class SimpleServiceLocatorTest {
         addServices();
 
         try {
-            assertNotSame(ssl.getObject("A"), ssl.getObject("A"));
-            assertNotSame(ssl.getObject("B"), ssl.getObject("B"));
-            assertNotSame(ssl.getObject("C"), ssl.getObject("C"));
-            assertNotSame(ssl.getObject("D"), ssl.getObject("D"));
+            assertSame(ssl.getObject("A"), ssl.getObject("A"));
+            assertSame(ssl.getObject("B"), ssl.getObject("B"));
+            assertSame(ssl.getObject("C"), ssl.getObject("C"));
+            assertSame(ssl.getObject("D"), ssl.getObject("D"));
         } catch (LocatorError e) {
             fail(e.toString());
         }
