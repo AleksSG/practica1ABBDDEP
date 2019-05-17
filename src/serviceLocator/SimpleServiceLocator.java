@@ -1,6 +1,14 @@
 package serviceLocator;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class SimpleServiceLocator implements ServiceLocator {
+
+    private enum ObjectType {SERVICE, CONSTANT};
+
+    private Map<String, <Object, >> services = new HashMap<>();
+
     @Override
     public void setService(String name, Factory factory) throws LocatorError {
 
