@@ -15,13 +15,13 @@ public class SimpleServiceLocatorTest {
         }
     }
 
-    class FactoryA1 implements Factory {
+    class FactoryA1 implements Factory<InterfaceA> {
 
         @Override
         public InterfaceA create(ServiceLocator sl) throws LocatorError {
             try {
-                InterfaceB b = (InterfaceB) sl.getObject("B");
-                InterfaceC c = (InterfaceC) sl.getObject("C");
+                InterfaceB b = sl.getObject(InterfaceB.class);
+                InterfaceC c = sl.getObject(InterfaceC.class);
                 return new ImplementationA1(b,c);
             } catch (ClassCastException ex) {
                 throw new LocatorError(ex);
@@ -36,12 +36,12 @@ public class SimpleServiceLocatorTest {
         }
     }
 
-    class FactoryB1 implements Factory {
+    class FactoryB1 implements Factory<InterfaceB> {
 
         @Override
         public InterfaceB create(ServiceLocator sl) throws LocatorError {
             try {
-                InterfaceD d = (InterfaceD) sl.getObject("D");
+                InterfaceD d = sl.getObject(InterfaceD.class);
                 return new ImplementationB1(d);
             } catch (ClassCastException ex) {
                 throw new LocatorError(ex);
@@ -56,13 +56,13 @@ public class SimpleServiceLocatorTest {
         }
     }
 
-    class FactoryC1 implements Factory {
+    class FactoryC1 implements Factory<InterfaceC> {
 
 
         @Override
         public InterfaceC create(ServiceLocator sl) throws LocatorError {
             try {
-                String c = (String) sl.getObject("Constant String");
+                String c = sl.getObject(String.class);
                 return new ImplementationC1(c);
             } catch (ClassCastException ex) {
                 throw new LocatorError(ex);
@@ -77,12 +77,12 @@ public class SimpleServiceLocatorTest {
         }
     }
 
-    class FactoryD1 implements Factory {
+    class FactoryD1 implements Factory<InterfaceD> {
 
         @Override
-        public InterfaceD create(ServiceLocator2 sl) throws LocatorError {
+        public InterfaceD create(ServiceLocator sl) throws LocatorError {
             try {
-                Integer d = (Integer) sl.getObject("Constant Integer");
+                Integer d = sl.getObject(Integer.class);
                 return new ImplementationD1(d);
             } catch (ClassCastException ex) {
                 throw new LocatorError(ex);
@@ -90,5 +90,50 @@ public class SimpleServiceLocatorTest {
         }
     }
 
+
+    private SimpleServiceLocator ssl;
+
+    private Integer constantInteger;
+    private String constantString;
+
+    private Factory factoryA;
+    private Factory factoryB;
+    private Factory factoryC;
+    private Factory factoryD;
+
+    @BeforeEach
+    void setUp(){
+        ssl = new SimpleServiceLocator();
+
+        constantInteger = 10;
+        constantString = "String";
+
+        factoryA = new FactoryA1();
+        factoryB = new FactoryB1();
+        factoryC = new FactoryC1();
+        factoryD = new FactoryD1();
+    }
+
+    private void addServices() {
+        try {
+            ssl.setService(FactoryA1.class, factoryA);
+            ssl.setService(FactoryB1.class, factoryB);
+            ssl.setService(FactoryC1.class, factoryC);
+            ssl.setService(FactoryD1.class, factoryD);
+        } catch (LocatorError e) {
+            fail(e.toString());
+        }
+    }
+
+    private void addAllFactoriesAsConstants() {
+        try {
+            ssl.setConstant(FactoryA1.class, factoryA);
+            ssl.setConstant(FactoryB1.class, factoryB);
+            ssl.setConstant(FactoryC1.class, factoryC);
+            ssl.setConstant(FactoryD1.class, factoryD);
+        } catch (LocatorError e) {
+            fail(e.toString());
+        }
+    }
 
 }
