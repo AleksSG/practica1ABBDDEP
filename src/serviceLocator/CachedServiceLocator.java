@@ -30,15 +30,16 @@ public class CachedServiceLocator implements ServiceLocator {
     }
 
     @Override
-    public Object getObject(String name) throws LocatorError {
+    public synchronized Object getObject(String name) throws LocatorError {
         Pair<ObjectType, Object> value = services.get(name);
         if(value == null)
             throw new LocatorError(new IllegalArgumentException("The key was not found in the map."));
 
         switch(value.getFirst()) {
             case SERVICE:
-                services.replace(name, value, new Pair<>(ObjectType.CONSTANT, ((Factory)value.getSecond()).create(this)));
-                return getObject(name);
+                Object newObject = ((Factory)value.getSecond()).create(this);
+                services.put(name, new Pair<>(ObjectType.CONSTANT, newObject));
+                return newObject;
             case CONSTANT:
                 return value.getSecond();
         }
