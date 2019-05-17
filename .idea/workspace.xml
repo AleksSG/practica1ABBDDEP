@@ -2,11 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="537189d7-7e3d-4220-90ab-16c20c82d2b0" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/serviceLocator/CachedServiceLocator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/serviceLocator/Factory.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/serviceLocator/LocatorError.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/serviceLocator/SimpleServiceLocator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/interficies.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/serviceLocator/TestSimpleServiceLocator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/serviceLocator/CachedServiceLocator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/serviceLocator/CachedServiceLocator.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -34,7 +34,7 @@
         <entry file="file://$PROJECT_DIR$/src/serviceLocator/Factory.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="75">
-              <caret line="5" lean-forward="true" selection-start-line="5" selection-end-line="5" />
+              <caret line="5" selection-start-line="5" selection-end-line="5" />
             </state>
           </provider>
         </entry>
@@ -43,16 +43,34 @@
         <entry file="file://$PROJECT_DIR$/src/serviceLocator/SimpleServiceLocator.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="150">
-              <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
+              <caret line="10" selection-start-line="10" selection-end-line="10" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/serviceLocator/CachedServiceLocator.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="240">
+              <caret line="16" column="5" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="5" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/interficies.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="45">
+              <caret line="3" column="23" selection-start-line="3" selection-start-column="23" selection-end-line="3" selection-end-column="23" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/serviceLocator/CachedServiceLocator.java">
+        <entry file="file://$PROJECT_DIR$/src/test/serviceLocator/TestSimpleServiceLocator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="75">
-              <caret line="5" column="8" selection-start-line="5" selection-start-column="8" selection-end-line="5" selection-end-column="8" />
+            <state relative-caret-position="30">
+              <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
             </state>
           </provider>
         </entry>
@@ -61,7 +79,7 @@
         <entry file="file://$PROJECT_DIR$/src/serviceLocator/LocatorError.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="105">
-              <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
+              <caret line="7" selection-start-line="7" selection-end-line="7" />
               <folding>
                 <element signature="e#114#115#0" expanded="true" />
                 <element signature="e#138#139#0" expanded="true" />
@@ -92,6 +110,15 @@
         <option value="$PROJECT_DIR$/src/serviceLocator/Factory.java" />
         <option value="$PROJECT_DIR$/src/serviceLocator/SimpleServiceLocator.java" />
         <option value="$PROJECT_DIR$/src/serviceLocator/CachedServiceLocator.java" />
+        <option value="$PROJECT_DIR$/test/serviceLocator/SimpleServiceLocatorTest.java" />
+        <option value="$PROJECT_DIR$/test/serviceLocator/interfaces.java" />
+        <option value="$PROJECT_DIR$/src/serviceLocatorTest/interficies.java" />
+        <option value="$PROJECT_DIR$/src/serviceLocatorTest/SimpleServiceLocatorTest.java" />
+        <option value="$PROJECT_DIR$/src/serviceLocatorTest/SimpleServiceLocator.java" />
+        <option value="$PROJECT_DIR$/src/serviceLocatorTest/SimpleServiceLocatorBruh.java" />
+        <option value="$PROJECT_DIR$/src/serviceLocatorTest/TestSimpleServiceLocator.java" />
+        <option value="$PROJECT_DIR$/src/test/TestSimpleServiceLocator.java" />
+        <option value="$PROJECT_DIR$/src/test/serviceLocator/TestSimpleServiceLocator.java" />
       </list>
     </option>
   </component>
@@ -124,6 +151,19 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="serviceLocator" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="practica1ABBDDEP" type="b2602c69:ProjectViewProjectNode" />
+              <item name="practica1ABBDDEP" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="practica1ABBDDEP" type="b2602c69:ProjectViewProjectNode" />
+              <item name="practica1ABBDDEP" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="serviceLocator" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -133,12 +173,19 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
+    <property name="Downloaded.Files.Path.Enabled" value="false" />
+    <property name="Repository.Attach.Annotations" value="false" />
+    <property name="Repository.Attach.JavaDocs" value="false" />
+    <property name="Repository.Attach.Sources" value="false" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="project.structure.last.edited" value="Project" />
-    <property name="project.structure.proportion" value="0.0" />
-    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
     <key name="CreateClassDialog.RecentsKey">
       <recent name="serviceLocator" />
     </key>
@@ -170,7 +217,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="67" y="25" width="1853" height="1055" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Image Layers" />
       <window_info id="Designer" />
@@ -203,7 +249,7 @@
     <entry file="file://$PROJECT_DIR$/src/serviceLocator/LocatorError.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
-          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
+          <caret line="7" selection-start-line="7" selection-end-line="7" />
           <folding>
             <element signature="e#114#115#0" expanded="true" />
             <element signature="e#138#139#0" expanded="true" />
@@ -221,21 +267,52 @@
     <entry file="file://$PROJECT_DIR$/src/serviceLocator/Factory.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
-          <caret line="5" lean-forward="true" selection-start-line="5" selection-end-line="5" />
+          <caret line="5" selection-start-line="5" selection-end-line="5" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/serviceLocator/SimpleServiceLocator.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
-          <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
+          <caret line="10" selection-start-line="10" selection-end-line="10" />
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/test/serviceLocator/SimpleServiceLocatorTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="1" selection-start-line="1" selection-end-line="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/serviceLocator/interfaces.java">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/serviceLocator/CachedServiceLocator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="8" selection-start-line="5" selection-start-column="8" selection-end-line="5" selection-end-column="8" />
+        <state relative-caret-position="240">
+          <caret line="16" column="5" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/interficies.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" column="23" selection-start-line="3" selection-start-column="23" selection-end-line="3" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/serviceLocator/TestSimpleServiceLocator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" selection-start-line="3" selection-end-line="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/serviceLocator/TestSimpleServiceLocator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
         </state>
       </provider>
     </entry>
@@ -289,10 +366,12 @@
       </state>
       <state key="ModuleStructureConfigurable.UI">
         <settings>
+          <last-edited>practica1ABBDDEP</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
                 <option value="0.2" />
+                <option value="0.6" />
               </list>
             </option>
           </splitter-proportions>
@@ -300,6 +379,7 @@
       </state>
       <state key="ProjectLibrariesConfigurable.UI">
         <settings>
+          <last-edited>org.junit.jupiter:junit-jupiter-api:5.4.2</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>

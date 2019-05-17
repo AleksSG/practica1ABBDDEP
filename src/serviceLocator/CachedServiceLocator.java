@@ -3,7 +3,7 @@ package serviceLocator;
 public class CachedServiceLocator implements ServiceLocator {
     @Override
     public void setService(String name, Factory factory) throws LocatorError {
-        
+
     }
 
     @Override
