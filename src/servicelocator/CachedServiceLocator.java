@@ -11,7 +11,7 @@ public class CachedServiceLocator implements ServiceLocator {
 
     private final Map<String, Pair<ObjectType, Object>> services;
 
-    public CachedServiceLocator(){
+    CachedServiceLocator(){
         services = new HashMap<>();
     }
 
@@ -47,7 +47,7 @@ public class CachedServiceLocator implements ServiceLocator {
         throw new LocatorError(new IllegalArgumentException("The ObjectType was neither SERVICE nor CONSTANT."));
     }
 
-    public int getServicesLenght() {
+    public int getServicesLength() {
         return this.services.size();
     }
 }

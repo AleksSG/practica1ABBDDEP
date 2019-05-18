@@ -45,7 +45,7 @@ public class SimpleServiceLocator implements ServiceLocator {
         throw new LocatorError(new IllegalArgumentException("The ObjectType was neither SERVICE nor CONSTANT."));
     }
 
-    int getServicesLenght() {
+    public int getServicesLength() {
         return this.services.size();
     }
 }
