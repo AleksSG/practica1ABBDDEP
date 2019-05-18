@@ -1,7 +1,7 @@
 package servicelocator;
 
-class LocatorError extends Exception {
-    LocatorError(Exception e) {
+public class LocatorError extends Exception {
+    public LocatorError(Exception e) {
         super(e);
     }
 }

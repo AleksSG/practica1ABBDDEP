@@ -1,97 +1,21 @@
 package servicelocator;
 
+import implementations.ImplementationA1;
+import implementations.ImplementationB1;
+import implementations.ImplementationC1;
+import implementations.ImplementationD1;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import servicelocator.factories.FactoryA1;
+import servicelocator.factories.FactoryB1;
+import servicelocator.factories.FactoryC1;
+import servicelocator.factories.FactoryD1;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class CachedServiceLocatorTest {
 
-    class ImplementationA1 implements InterfaceA {
-        private InterfaceB b;
-        private InterfaceC c;
-        ImplementationA1(InterfaceB b, InterfaceC c) {
-            this.b = b; this.c = c;
-        }
-    }
-
-    class FactoryA1 implements Factory {
-
-        @Override
-        public InterfaceA create(ServiceLocator sl) throws LocatorError {
-            try {
-                InterfaceB b = (InterfaceB) sl.getObject("B");
-                InterfaceC c = (InterfaceC) sl.getObject("C");
-                return new ImplementationA1(b,c);
-            } catch (ClassCastException ex) {
-                throw new LocatorError(ex);
-            }
-        }
-    }
-
-    class ImplementationB1 implements InterfaceB {
-        private InterfaceD d;
-        ImplementationB1(InterfaceD d) {
-            this.d = d;
-        }
-    }
-
-    class FactoryB1 implements Factory {
-
-        @Override
-        public InterfaceB create(ServiceLocator sl) throws LocatorError {
-            try {
-                InterfaceD d = (InterfaceD) sl.getObject("D");
-                return new ImplementationB1(d);
-            } catch (ClassCastException ex) {
-                throw new LocatorError(ex);
-            }
-        }
-    }
-
-    class ImplementationC1 implements InterfaceC {
-        private String s;
-        ImplementationC1(String s) {
-            this.s = s;
-        }
-    }
-
-    class FactoryC1 implements Factory {
-
-
-        @Override
-        public InterfaceC create(ServiceLocator sl) throws LocatorError {
-            try {
-                String c = (String) sl.getObject("Constant String");
-                return new ImplementationC1(c);
-            } catch (ClassCastException ex) {
-                throw new LocatorError(ex);
-            }
-        }
-    }
-
-    class ImplementationD1 implements InterfaceD {
-        private int i;
-        ImplementationD1(int i) {
-            this.i = i;
-        }
-    }
-
-    class FactoryD1 implements Factory {
-
-        @Override
-        public InterfaceD create(ServiceLocator sl) throws LocatorError {
-            try {
-                Integer d = (Integer) sl.getObject("Constant Integer");
-                return new ImplementationD1(d);
-            } catch (ClassCastException ex) {
-                throw new LocatorError(ex);
-            }
-        }
-    }
-
-
-    private CachedServiceLocator ssl;
+    private CachedServiceLocator csl;
 
     private Integer constantInteger;
     private String constantString;
@@ -104,7 +28,7 @@ class CachedServiceLocatorTest {
 
     @BeforeEach
     void setUp(){
-        ssl = new CachedServiceLocator();
+        csl = new CachedServiceLocator();
 
         constantInteger = 10;
         constantString = "String";
@@ -117,60 +41,60 @@ class CachedServiceLocatorTest {
 
     @Test
     void setServicesCorrectly() {
-        assertEquals(0, ssl.getServicesLenght());
+        assertEquals(0, csl.getServicesLenght());
         addServices();
-        assertEquals(4, ssl.getServicesLenght());
+        assertEquals(4, csl.getServicesLenght());
     }
 
     @Test
     void setServicesRepeatedKey() {
         addServices();
-        assertThrows(LocatorError.class, () -> ssl.setService("A", factoryA));
-        assertThrows(LocatorError.class, () -> ssl.setService("B", factoryB));
-        assertThrows(LocatorError.class, () -> ssl.setService("C", factoryC));
-        assertThrows(LocatorError.class, () -> ssl.setService("D", factoryD));
+        assertThrows(LocatorError.class, () -> csl.setService("A", factoryA));
+        assertThrows(LocatorError.class, () -> csl.setService("B", factoryB));
+        assertThrows(LocatorError.class, () -> csl.setService("C", factoryC));
+        assertThrows(LocatorError.class, () -> csl.setService("D", factoryD));
     }
 
     @Test
     void setConstantsCorrectly() {
-        assertEquals(0, ssl.getServicesLenght());
+        assertEquals(0, csl.getServicesLenght());
         addConstant();
-        assertEquals(2, ssl.getServicesLenght());
+        assertEquals(2, csl.getServicesLenght());
         addFactoriesAsConstant();
-        assertEquals(6, ssl.getServicesLenght());
+        assertEquals(6, csl.getServicesLenght());
     }
 
     @Test
     void setConstantsRepeatedKey() {
         addConstant();
-        assertThrows(LocatorError.class, () -> ssl.setConstant("Constant Integer", 100));
-        assertThrows(LocatorError.class, () -> ssl.setConstant("Constant String", "Diferent Value"));
-        assertDoesNotThrow(() -> ssl.setConstant("Diferent Key", "Diferent Value"));
+        assertThrows(LocatorError.class, () -> csl.setConstant("Constant Integer", 100));
+        assertThrows(LocatorError.class, () -> csl.setConstant("Constant String", "Diferent Value"));
+        assertDoesNotThrow(() -> csl.setConstant("Diferent Key", "Diferent Value"));
     }
 
     @Test
     void checkDoesNotThrowWhenAllDependenciesAreThere() {
         addServices();
         addConstant();
-        assertDoesNotThrow(() -> ssl.getObject("A"));
+        assertDoesNotThrow(() -> csl.getObject("A"));
     }
 
     @Test
     void checkThrowsWhenNotAllDependenciesAreThere() {
         try {
-            ssl.setService("A", factoryA);
-            ssl.setService("B", factoryB);
-            ssl.setService("C", factoryC);
+            csl.setService("A", factoryA);
+            csl.setService("B", factoryB);
+            csl.setService("C", factoryC);
         }
         catch(Exception e) {
             fail(e.toString());
         }
-        assertThrows(LocatorError.class, () -> ssl.getObject("A"));
+        assertThrows(LocatorError.class, () -> csl.getObject("A"));
     }
 
     @Test
     void getNoExistingKeyError() {
-        assertThrows(LocatorError.class, () -> ssl.getObject("Not Existing Key"));
+        assertThrows(LocatorError.class, () -> csl.getObject("Not Existing Key"));
     }
 
     @Test
@@ -180,13 +104,13 @@ class CachedServiceLocatorTest {
 
         try {
             //Check if they are Objects (constants).
-            assertSame(ssl.getObject("Constant Integer"), constantInteger);
-            assertSame(ssl.getObject("Constant String"), constantString);
+            assertSame(csl.getObject("Constant Integer"), constantInteger);
+            assertSame(csl.getObject("Constant String"), constantString);
 
-            assertSame(ssl.getObject("Constant factA"), factoryA);
-            assertSame(ssl.getObject("Constant factB"), factoryB);
-            assertSame(ssl.getObject("Constant factC"), factoryC);
-            assertSame(ssl.getObject("Constant factD"), factoryD);
+            assertSame(csl.getObject("Constant factA"), factoryA);
+            assertSame(csl.getObject("Constant factB"), factoryB);
+            assertSame(csl.getObject("Constant factC"), factoryC);
+            assertSame(csl.getObject("Constant factD"), factoryD);
         } catch (LocatorError e) {
             fail(e.toString());
         }
@@ -198,10 +122,10 @@ class CachedServiceLocatorTest {
         addServices();
 
         try {
-            assertTrue(ssl.getObject("A") instanceof ImplementationA1);
-            assertTrue(ssl.getObject("B") instanceof ImplementationB1);
-            assertTrue(ssl.getObject("C") instanceof ImplementationC1);
-            assertTrue(ssl.getObject("D") instanceof ImplementationD1);
+            assertTrue(csl.getObject("A") instanceof ImplementationA1);
+            assertTrue(csl.getObject("B") instanceof ImplementationB1);
+            assertTrue(csl.getObject("C") instanceof ImplementationC1);
+            assertTrue(csl.getObject("D") instanceof ImplementationD1);
         } catch (LocatorError e) {
             fail(e.toString());
         }
@@ -213,10 +137,10 @@ class CachedServiceLocatorTest {
         addServices();
 
         try {
-            assertSame(ssl.getObject("A"), ssl.getObject("A"));
-            assertSame(ssl.getObject("B"), ssl.getObject("B"));
-            assertSame(ssl.getObject("C"), ssl.getObject("C"));
-            assertSame(ssl.getObject("D"), ssl.getObject("D"));
+            assertSame(csl.getObject("A"), csl.getObject("A"));
+            assertSame(csl.getObject("B"), csl.getObject("B"));
+            assertSame(csl.getObject("C"), csl.getObject("C"));
+            assertSame(csl.getObject("D"), csl.getObject("D"));
         } catch (LocatorError e) {
             fail(e.toString());
         }
@@ -224,10 +148,10 @@ class CachedServiceLocatorTest {
 
     private void addServices() {
         try {
-            ssl.setService("A", factoryA);
-            ssl.setService("B", factoryB);
-            ssl.setService("C", factoryC);
-            ssl.setService("D", factoryD);
+            csl.setService("A", factoryA);
+            csl.setService("B", factoryB);
+            csl.setService("C", factoryC);
+            csl.setService("D", factoryD);
         } catch (LocatorError e) {
             fail(e.toString());
         }
@@ -235,8 +159,8 @@ class CachedServiceLocatorTest {
 
     private void addConstant() {
         try {
-            ssl.setConstant("Constant Integer", constantInteger);
-            ssl.setConstant("Constant String", constantString);
+            csl.setConstant("Constant Integer", constantInteger);
+            csl.setConstant("Constant String", constantString);
         } catch (LocatorError e) {
             fail(e.toString());
         }
@@ -244,10 +168,10 @@ class CachedServiceLocatorTest {
 
     private void addFactoriesAsConstant() {
         try {
-            ssl.setConstant("Constant factA", factoryA);
-            ssl.setConstant("Constant factB", factoryB);
-            ssl.setConstant("Constant factC", factoryC);
-            ssl.setConstant("Constant factD", factoryD);
+            csl.setConstant("Constant factA", factoryA);
+            csl.setConstant("Constant factB", factoryB);
+            csl.setConstant("Constant factC", factoryC);
+            csl.setConstant("Constant factD", factoryD);
         } catch (LocatorError e) {
             fail(e.toString());
         }

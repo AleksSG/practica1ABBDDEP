@@ -1,95 +1,23 @@
 package servicelocator2;
 
+import implementations.ImplementationA1;
+import implementations.ImplementationB1;
+import implementations.ImplementationC1;
+import implementations.ImplementationD1;
+import interfaces.InterfaceA;
+import interfaces.InterfaceB;
+import interfaces.InterfaceC;
+import interfaces.InterfaceD;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import servicelocator2.factories.FactoryA1;
+import servicelocator2.factories.FactoryB1;
+import servicelocator2.factories.FactoryC1;
+import servicelocator2.factories.FactoryD1;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class CachedServiceLocatorTest {
-
-    class ImplementationA1 implements InterfaceA {
-        private InterfaceB b;
-        private InterfaceC c;
-        ImplementationA1(InterfaceB b, InterfaceC c) {
-            this.b = b; this.c = c;
-        }
-    }
-
-    class FactoryA1 implements Factory<InterfaceA> {
-
-        @Override
-        public InterfaceA create(ServiceLocator sl) throws LocatorError {
-            try {
-                InterfaceB b = sl.getObject(InterfaceB.class);
-                InterfaceC c = sl.getObject(InterfaceC.class);
-                return new ImplementationA1(b,c);
-            } catch (ClassCastException ex) {
-                throw new LocatorError(ex);
-            }
-        }
-    }
-
-    class ImplementationB1 implements InterfaceB {
-        private InterfaceD d;
-        ImplementationB1(InterfaceD d) {
-            this.d = d;
-        }
-    }
-
-    class FactoryB1 implements Factory<InterfaceB> {
-
-        @Override
-        public InterfaceB create(ServiceLocator sl) throws LocatorError {
-            try {
-                InterfaceD d = sl.getObject(InterfaceD.class);
-                return new ImplementationB1(d);
-            } catch (ClassCastException ex) {
-                throw new LocatorError(ex);
-            }
-        }
-    }
-
-    class ImplementationC1 implements InterfaceC {
-        private String s;
-        ImplementationC1(String s) {
-            this.s = s;
-        }
-    }
-
-    class FactoryC1 implements Factory<InterfaceC> {
-
-
-        @Override
-        public InterfaceC create(ServiceLocator sl) throws LocatorError {
-            try {
-                String c = sl.getObject(String.class);
-                return new ImplementationC1(c);
-            } catch (ClassCastException ex) {
-                throw new LocatorError(ex);
-            }
-        }
-    }
-
-    class ImplementationD1 implements InterfaceD {
-        private int i;
-        ImplementationD1(int i) {
-            this.i = i;
-        }
-    }
-
-    class FactoryD1 implements Factory<InterfaceD> {
-
-        @Override
-        public InterfaceD create(ServiceLocator sl) throws LocatorError {
-            try {
-                Integer d = sl.getObject(Integer.class);
-                return new ImplementationD1(d);
-            } catch (ClassCastException ex) {
-                throw new LocatorError(ex);
-            }
-        }
-    }
-
 
     private CachedServiceLocator csl;
 
@@ -112,7 +40,6 @@ class CachedServiceLocatorTest {
         factoryB = new FactoryB1();
         factoryC = new FactoryC1();
         factoryD = new FactoryD1();
-
     }
 
     @Test
@@ -245,5 +172,4 @@ class CachedServiceLocatorTest {
             fail(e.toString());
         }
     }
-
 }

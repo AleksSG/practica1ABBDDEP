@@ -1,4 +1,0 @@
-package servicelocator;
-
-interface InterfaceC {
-}
