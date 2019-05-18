@@ -11,7 +11,7 @@ public class SimpleServiceLocator implements ServiceLocator {
 
     private final Map<Class, Pair<ObjectType, Object>> services;
 
-    public SimpleServiceLocator(){
+    SimpleServiceLocator(){
         services = new HashMap<>();
     }
 
@@ -46,7 +46,7 @@ public class SimpleServiceLocator implements ServiceLocator {
         throw new LocatorError(new IllegalArgumentException("The ObjectType was neither SERVICE nor CONSTANT."));
     }
 
-    public int getServicesLenght() {
+    public int getServicesLength() {
         return this.services.size();
     }
 }
