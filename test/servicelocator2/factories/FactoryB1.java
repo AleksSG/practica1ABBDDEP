@@ -10,11 +10,7 @@ import servicelocator2.ServiceLocator;
 public class FactoryB1 implements Factory<InterfaceB> {
     @Override
     public InterfaceB create(ServiceLocator sl) throws LocatorError {
-        try {
-            InterfaceD d = sl.getObject(InterfaceD.class);
-            return new ImplementationB1(d);
-        } catch (ClassCastException ex) {
-            throw new LocatorError(ex);
-        }
+        InterfaceD d = sl.getObject(InterfaceD.class);
+        return new ImplementationB1(d);
     }
 }
