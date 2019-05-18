@@ -16,21 +16,21 @@ public class CachedServiceLocator implements ServiceLocator {
     }
 
     @Override
-    public synchronized void setService(String name, Factory factory) throws LocatorError {
+    public void setService(String name, Factory factory) throws LocatorError {
         if(services.containsKey(name))
             throw new LocatorError(new IllegalArgumentException("The key already exists in the map."));
         services.put(name, new Pair<>(ObjectType.SERVICE, factory));
     }
 
     @Override
-    public synchronized void setConstant(String name, Object value) throws LocatorError {
+    public void setConstant(String name, Object value) throws LocatorError {
         if(services.containsKey(name))
             throw new LocatorError(new IllegalArgumentException("The key already exists in the map."));
         services.put(name, new Pair<>(ObjectType.CONSTANT, value));
     }
 
     @Override
-    public synchronized Object getObject(String name) throws LocatorError {
+    public Object getObject(String name) throws LocatorError {
         Pair<ObjectType, Object> value = services.get(name);
         if(value == null)
             throw new LocatorError(new IllegalArgumentException("The key was not found in the map."));
